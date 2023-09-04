@@ -1,0 +1,23 @@
+{
+  "name": "saucedemo-cypress",
+  "version": "1.0.0",
+  "description": "Cypress Tests",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/magierg/saucedemo-cypress.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/magierg/saucedemo-cypress/issues"
+  },
+  "homepage": "https://github.com/magierg/saucedemo-cypress#readme",
+  "devDependencies": {
+    "cypress": "^12.1.0",
+    "typescript": "^5.2.2"
+  }
+}
