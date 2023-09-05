@@ -1,28 +1,36 @@
+// cypress/integration/saucedemo.spec.ts
+
 import LoginPage from "../page_objects/LoginPage";
 import InventoryPage from "../page_objects/InventoryPage";
 
 describe("SauceDemo Tests", () => {
-  before(() => {
-    cy.intercept("/service-worker.js", {
-      body: undefined,
-    });
-  });
-  // beforeEach(() => {
-  //   LoginPage.visit();
-  // });
-
-  it("should log in with valid credentials", () => {
+  beforeEach(() => {
+    // Start a new Cypress session before each test.
     LoginPage.visit();
-
-    LoginPage.login("standard_user", "secret_sauce");
-
-    cy.get("[data-test=inventory-header]").should("exist");
   });
 
-  it("should add an item to the cart", () => {
+  it("should be able to login with valid credentials", () => {
     LoginPage.login("standard_user", "secret_sauce");
-    InventoryPage.addItemToCart();
+    cy.url().should("include", "/inventory.html");
+  });
 
-    InventoryPage.getShoppingCartBadgeText().should("have.text", "1");
+  it("should display error for missing or invalid credentials", () => {
+    LoginPage.login("", "");
+    LoginPage.getErrorMessage().should("contain.text", "Username is required");
+    LoginPage.login("test", "");
+    LoginPage.getErrorMessage().should("contain.text", "Password is required");
+    LoginPage.login("test", "test");
+    LoginPage.getErrorMessage().should(
+      "contain.text",
+      "Username and password do not match any user in this service"
+    );
+  });
+
+  it("should display error for locked out user", () => {
+    LoginPage.login("locked_out_user", "secret_sauce");
+    LoginPage.getErrorMessage().should(
+      "contain.text",
+      "Sorry, this user has been locked out."
+    );
   });
 });

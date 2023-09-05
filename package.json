@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/magierg/saucedemo-cypress#readme",
   "devDependencies": {
-    "cypress": "^12.1.0",
+    "cypress": "^13.1.0",
     "typescript": "^5.2.2"
   }
 }
