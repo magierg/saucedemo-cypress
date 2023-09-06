@@ -5,7 +5,7 @@ class LoginPage {
   private readonly errorMessage = "[data-test=error]";
 
   visit() {
-    cy.visit("https://www.saucedemo.com/");
+    cy.visit("/");
   }
 
   login(username: string, password: string) {
@@ -16,6 +16,7 @@ class LoginPage {
       cy.get(this.passwordInput).type(password);
     }
     cy.get(this.loginButton).click();
+    cy.url().should("include", "/inventory.html");
   }
   getErrorMessage() {
     return cy.get(this.errorMessage);

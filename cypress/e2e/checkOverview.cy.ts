@@ -1,22 +1,22 @@
-// cypress/integration/saucedemo.spec.ts
-
-import LoginPage from "../page_objects/LoginPage";
-import InventoryPage from "../page_objects/InventoryPage";
+import LoginPage from "./page_objects/LoginPage";
+import CheckoutOverviewPage from "./page_objects/CheckOutOwerviewPage";
 
 describe("SauceDemo Tests", () => {
   beforeEach(() => {
-    // Start a new Cypress session before each test.
+    cy.setLocalStorage("cart-contents", "[4,0]");
     LoginPage.visit();
     LoginPage.login("standard_user", "secret_sauce");
-    cy.url().should("include", "/inventory.html");
   });
 
   it("should add an item to the cart", () => {
+    cy.visit({
+      url: "/checkout-step-two.html",
+      method: "GET",
+      failOnStatusCode: false,
+    });
     // Use the same session to log in and add items to the cart.
-    InventoryPage.addItemToCart();
-
     // Check the shopping cart badge using the InventoryPage POM method.
-    InventoryPage.getShoppingCartBadge().should("have.text", "1");
+    CheckoutOverviewPage.getShoppingCartBadgeCounter().should("have.text", "2");
   });
 
   // Add more tests as needed

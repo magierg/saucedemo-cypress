@@ -35,3 +35,46 @@
 //     }
 //   }
 // }
+export {};
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      /**
+       * Logs in with a given user
+       * @param username email of the user you want to log in
+       * @param password user password
+       * @example
+       * cy.login('filip@example.com', 'i<3slovakia!')
+       *
+       */
+      login: typeof login;
+    }
+  }
+}
+
+const login = (username: string, password: string) => {
+  cy.session(
+    username,
+    () => {
+      cy.visit({
+        url: "/",
+        method: "GET",
+        failOnStatusCode: false,
+      });
+      if (username !== "") {
+        cy.get(this.usernameInput).type(username);
+      }
+      if (password !== "") {
+        cy.get(this.passwordInput).type(password);
+      }
+      cy.get(this.loginButton).click();
+      cy.url().should("include", "/inventory.html");
+    },
+    {
+      cacheAcrossSpecs: true,
+    }
+  );
+};
+
+Cypress.Commands.addAll({ login });

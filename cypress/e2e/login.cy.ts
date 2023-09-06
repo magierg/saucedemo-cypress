@@ -1,11 +1,10 @@
 // cypress/integration/saucedemo.spec.ts
 
-import LoginPage from "../page_objects/LoginPage";
-import InventoryPage from "../page_objects/InventoryPage";
+import LoginPage from "./page_objects/LoginPage";
+import InventoryPage from "./page_objects/InventoryPage";
 
 describe("SauceDemo Tests", () => {
   beforeEach(() => {
-    // Start a new Cypress session before each test.
     LoginPage.visit();
   });
 
