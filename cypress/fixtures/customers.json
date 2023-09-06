@@ -1,0 +1,14 @@
+[
+  {
+    "userId": "standard_user",
+    "firstName": "Standard",
+    "lastName": "User",
+    "postalCode": "1234"
+  },
+  {
+    "userId": "problem_user",
+    "firstName": "Problem",
+    "lastName": "User",
+    "postalCode": "4321"
+  }
+]

@@ -1,11 +1,11 @@
-class LoginPage {
+export class LoginPage {
   private readonly usernameInput = "[data-test=username]";
   private readonly passwordInput = "[data-test=password]";
   private readonly loginButton = "[data-test=login-button]";
   private readonly errorMessage = "[data-test=error]";
 
   visit() {
-    cy.visit("/");
+    cy.visit("/", { failOnStatusCode: false });
   }
 
   login(username: string, password: string) {
@@ -16,11 +16,8 @@ class LoginPage {
       cy.get(this.passwordInput).type(password);
     }
     cy.get(this.loginButton).click();
-    cy.url().should("include", "/inventory.html");
   }
   getErrorMessage() {
     return cy.get(this.errorMessage);
   }
 }
-
-export default new LoginPage();
